@@ -1,0 +1,40 @@
+프로시저란? 
+- 넓게 보면 뷰와 비슷한 개념이다.
+-- 특정 데이터를 프로시저에 만들어 놓으면, 사용자 지정 데이터를 통해서 원하는 데이터를 추출해 볼 수 있다.
+예를들어, id값으로 3번인 것을 확인하고 싶다거나, 이름이 '박감자' 라는 데이터를 가진 것의 정보를 확인할 때 등등
+  데이터를 프로시저에 담아놓고 있다가 call 프로시저('박감자' or 3 등등) 으로 확인할 수 있는 것이다.
+  
+  create or replace procedure test_procedure (
+    in_num in number --여기는 매개변수 지정하는 곳. --> 검색창이라고 생각하면 된다.
+  )
+  as -- or is
+    temp_id book.bookid%type,
+    temp_name book.bookname%type; -- 정보를 담는 그릇으로 활용됨.
+  begin
+    select name
+    into temp_name
+    where bookid = in_num; -- 매개변수랑 북아이디(조인할 것) 같은 곳에서 into를 통해 데이터값을 할당시켜준다.
+    
+    dbms_output.put_line(temp_name); -- 출력문
+  end;
+  
+  call test_procedure(1); --> 이렇게 호출해서 검색하면 된다. call 안되면 execute test_procedure(2);
+  
+
+함수란?
+-- 프로시저랑 똑같은 기능이다. 다만 리턴값이 존재한다.
+
+create or replace function test_function (
+  in_num in number -- 매개변수인건 프로시저랑 똑같다.
+) return varchar2 -- 리턴할 타입이다.세미콜론으로 닫지 아니한다.
+as -- or is
+  temp_name varchar2(30); -- 그릇이 필요하면 하나 만들어주면 된다. 필요 없으면 생략 가능.
+ begin
+  select bookname
+  into temp_name
+  where bookid = in_num;
+  
+  return temp_name; -- 값을 리턴해준다.
+ end;
+ 
+ call test_function(3); --> 리턴값 호출하기.
