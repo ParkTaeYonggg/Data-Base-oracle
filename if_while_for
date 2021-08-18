@@ -6,3 +6,24 @@ if문은 조건문으로 사용하는 것은 똑같다.
 if (mod(temp,2) = 0) then dbms_output.put_line('이렇게 사용하는 거다');
  elsif (mod(temp,2) = 1) then dbms_output.put_line('첫번째 조건 펄스이고 이게 트루이면 이게 출력될 것이다.');
 end if;
+
+
+while문도 작동원리는 자바랑 똑같다.
+--차이점1 : loop와 end loop 필수
+
+while (temp <= in_num(사용자 지정 수를 담는 변수임)) loop
+ ---반복하고자 하는 내용 아무거나 기입.
+ ***단, 와일조건을 끝내 줄 문법 사용해야함.
+ 1. exit when (종료 조건);
+ 2. temp := temp+1;
+ 이런식으로 조건을 추가해주자. 반드시.
+end loop;
+
+
+for문도 자바랑 똑같다.
+--차이점1 : 조건식 거는 방식이 다름. 아래 예시를 참고하자.
+--차이점2 : loop ~ end loop; 필수임.
+
+ for Nada(변수명 아무거나) in Nada..in_num(..-> 마침표 2개는 필수, in_num은 사용자 지정 변수임) loop
+  내가 반복하고 싶은 기능 아무거나 구현
+ end loop;
