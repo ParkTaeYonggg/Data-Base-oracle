@@ -1,1 +1,33 @@
 트리거 
+create (or replace) trigger *변수명*                                     |--> ex:loadded_Table
+  before (or after) update or delete or insert on *데이터를 담고 있는 테이블(얘가 수정, 삭제, 삽입 되면 자동으로 트리거 켜짐)
+  for each row -- 이거 데이터 처리 여러가지 하게 해줌.
+ declare
+ begin
+    if inserting then
+    (test_trigger.id, test_trigger_name...etc)
+      insert into *자료 담을 테이블(ex:test_trigger)*
+      values (:new.loadded_TableId, :new.loadded_TableName, :new.loadded_TableAddress..etc);
+    elsif updating then 
+      insert into *자료 담을 테이블(ex:test_trigger)*
+      values (:old.loadded_Tableid || ' > ' || :new.loadded_Tableid,
+              :old.loadded_TableName || ' > ' || :new.loadded_TableName...etc);
+    elsif deleting then
+      insert into *자료 담을 테이블(ex:test_trigger)*
+      values (:old.loadded_Tableid,:old.loadded_TableName...etc);
+    end if;
+  
+ end;
+ 
+ 
+ 
+ union, minus, union all
+ 
+ select id a, name b
+ from *test t*
+ union
+ select '합계',count(name)
+ from *test t*
+ order by t.id
+ -----오더바이는 유니온 아래에 나오는 절에 붙음
+ ----- 컬럼의 수는 똑같아야 함.
